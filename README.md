@@ -60,7 +60,7 @@ A feature-rich, responsive, and accessible random quote generator built with van
    
 2. Navigate into the directory
    ```bash
-   cd random-quote-generator
+   cd quotables_random_qoute_generator
    ```
    
 3. Open index.html in your browser (no build required)
