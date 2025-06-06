@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <title>Quotables</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'dark',
+      content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8B5CF6',
+            secondary: '#6366F1',
+            background: '#1e1e3f',
+            card: '#2d2d5a',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body id="app-root" class="dark:bg-gradient-to-br dark:from-[#0f172a] dark:to-[#312e81] bg-gradient-to-br from-slate-500 to-white dark:text-white min-h-screen font-sans flex justify-center p-4">
+
+  <div class="w-full max-w-4xl space-y-12">
+    <!-- Header -->
+    <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h1 class="text-4xl font-extrabold tracking-wide dark:text-white">Quotables</h1>
+        <p class="text-sm dark:text-slate-300">Discover wisdom from great minds</p>
+      </div>
+      <div class="flex items-center gap-2 dark:text-white">
+        <button id="favorites-btn" class="flex items-center border gap-1 px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 text-sm">
+          <span><i class="fa-regular fa-heart mr-2"></i></span>
+          <span>Favorites (<span id="favorites-count">0</span>)</span>
+        </button>
+        <button id="preferences-btn" class="flex items-center border gap-1 px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 text-sm">
+          <span><i class="fa-solid fa-gear"></i></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Quote card -->
+    <main class="bg-white/5 backdrop-blur-md p-6 rounded-xl shadow-lg">
+      <blockquote id="quote-text" class="text-xl sm:text-2xl italic text-center dark:text-slate-100 mb-4">
+        "In this life we cannot do great things. We can only do small things with great love."
+      </blockquote>
+      <p class="text-center dark:text-slate-300 mb-6"> <span id="quote-author" class="italic font-medium">Mother Teresa</span></p>
+
+      <!-- Button Actions -->
+      <div class="flex flex-wrap justify-center gap-3">
+        <button id="new-quote" class="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold hover:opacity-90 transition">
+          <span><i class="fa-solid fa-refresh mr-4"></i></span> New Quote
+        </button>
+        <button id="copy-quote" class="px-6 py-2 rounded-full bg-black text-white dark:bg-white/10 hover:bg-white/20 hover:text-black transition">
+          <i class="fa-solid fa-copy mr-4"></i> Copy
+        </button>
+        <button id="share-quote" class="px-6 py-2 rounded-full bg-black text-white dark:bg-white/10 hover:bg-white/20 hover:text-black transition">
+          <i class="fa-solid fa-share-nodes mr-4"></i> Share
+        </button>
+        <button id="favorite-quote" class="px-6 py-2 rounded-full bg-black text-white dark:bg-white/10 hover:bg-white/20 hover:text-black transition">
+          <i class="fa-regular fa-heart mr-4"></i> Favorite
+        </button>
+      </div>
+    </main>
+
+    <!-- Auto refresh section -->
+    <section class="bg-white/5 backdrop-blur-md p-4 rounded-xl shadow">
+      <label for="refresh-interval" class="block text-center mb-3 dark:text-slate-300 text-sm">
+        <i class="fa-solid fa-clock mr-4"></i> Auto-refresh:
+      </label>
+      <div class="flex flex-wrap justify-center gap-3">
+        <button id="auto-refresh-toggle" class="px-4 py-2 rounded-md bg-black text-white dark:bg-white/10 hover:bg-white/20 transition">
+          <i class="fa-solid fa-play mr-4"></i> Start
+        </button>
+        <select id="refresh-interval" class="px-4 py-2 rounded-md bg-black dark:bg-white/10 text-white focus:text-white dark:focus:text-white">
+          <option value="10">10s</option>
+          <option value="30" selected>30s</option>
+          <option value="60">60s</option>
+          <option value="120">2 min</option>
+        </select>
+      </div>
+    </section>
+  </div>
+
+  <!-- Favorites modal -->
+  <div id="favorites-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="favModal dark:bg-card bg-slate-200 text-white rounded-xl w-full max-w-2xl p-6 space-y-4 shadow-lg relative">
+        <!-- Close Button -->
+        <button id="close-favorites" class="absolute top-3 right-4 text-white hover:text-red-400">
+            <i class="fas fa-times text-xl"></i>
+        </button>
+
+        <h2 class="text-xl font-semibold flex items-center gap-2 text-black dark:text-white">
+            <i class="fa-solid fa-heart text-red-500"></i>
+            <span>Favorites (<span id="favorites-modal-count">0</span>)</span>
+        </h2>
+
+        <!-- Export/Import Buttons -->
+        <div class="flex flex-wrap gap-2">
+            <button id="export-json" class="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-sm flex items-center gap-2">
+                <i class="fa-solid fa-download"></i> Export to JSON
+            </button>
+        <label for="import-json" class="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-sm flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-upload"></i> Import from JSON
+            <input type="file" id="import-json" class="hidden" accept=".json" />
+        </label>
+        </div>
+
+        <!-- Favorite List -->
+        <div id="favorites-list" class="space-y-4 max-h-72 overflow-y-auto pr-1">
+            <!-- Favorite quotes here -->
+        </div>
+
+        <!-- Clear All Button -->
+        <button id="clear-favorites" class="w-full py-2 bg-red-600 hover:bg-red-700 rounded-lg flex items-center justify-center gap-2 text-white font-medium">
+        <i class="fa-solid fa-trash"></i> Clear All Favorites
+        </button>
+    </div>
+  </div>
+
+  <!-- Preferences modal -->
+  <div id="preferences-modal" class="hidden dark:text-white fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+    <div class="prefModal dark:bg-card bg-slate-200 w-full max-w-4xl rounded-2xl shadow-md p-6">
+    
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-semibold">Quotables Preferences</h2>
+      <p id="save-preferences" class="bg-white px-3 py-2 rounded-full hover:bg-primary-dark transition"><i id="saving" class="fa-solid fa-pen text-black"></i></p>
+    </div>
+    
+    <!-- Settings Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      
+      <!-- Light/dark mode -->
+      <div class="bg-muted p-4 rounded-xl">
+        <h3 class="font-medium mb-3">Light/Dark Mode</h3>
+        <div class="flex gap-4">
+          <label class="inline-flex items-center space-x-2">
+            <input type="radio" name="mode" value="light" class="form-radio"> <span>Light</span>
+          </label>
+          <label class="inline-flex items-center space-x-2">
+            <input type="radio" name="mode" value="dark" class="form-radio"> <span>Dark</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Language Selector -->
+      <div class="bg-muted p-4 rounded-xl">
+        <h3 class="font-medium mb-3">Language Selector</h3>
+        <select id="language-select" class="w-full p-2 rounded border border-gray-300 text-black">
+          <option value="en">English</option>
+          <option value="de">German</option>
+          <!-- More language options -->
+        </select>
+      </div>
+    </div>
+
+    <!-- Quotes Filter/Search -->
+    <!-- <div class="bg-muted p-4 rounded-xl mb-6">
+      <h3 class="font-medium mb-3">Quotes Filter / Search</h3>
+      <input type="text" placeholder="Search by author or genre..." class="w-full p-2 rounded border text-black border-gray-300 mb-3">
+      <select class="w-full p-2 rounded border border-gray-300 text-black">
+        <option>All Authors</option> -->
+        <!-- More authors -->
+      <!-- </select>
+    </div> -->
+
+    <!-- Font Selector -->
+    <div class="bg-muted p-4 rounded-xl mb-6">
+      <h3 class="font-medium mb-3">Custom Font Selector</h3>
+      <select id="font-select" class="w-full p-2 rounded border border-gray-300 text-black">
+        <option value="Sans Serif">Sans Serif</option>
+        <option value="Lexend Deca">Lexend Deca</option>
+        <option value="Arial Narrow">Arial Narrow</option>
+      </select>
+    </div>
+
+    <!-- Color Theme Options -->
+    <!-- <div class="bg-muted p-4 rounded-xl">
+        <h3 class="font-medium mb-3">Color Theme Selector</h3>
+        <div class="flex space-x-4">
+            <button name="theme" class="bg-white text-black border border-gray-300 px-4 py-2 rounded hover:scale-105 transition">Theme 1</button>
+            <button name="theme" class="bg-blue-500 text-white px-4 py-2 rounded hover:scale-105 transition ">Theme 2</button>
+            <button name="theme" class="bg-black text-white px-4 py-2 rounded hover:scale-105 transition">Theme 3</button>
+        </div>
+    </div> -->
+        
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

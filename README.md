@@ -46,7 +46,7 @@ A feature-rich, responsive, and accessible random quote generator built with van
 - **CSS3** – Flexbox/Grid, variables, theming
 - **JavaScript (ES6+)** – DOM manipulation, async `fetch()`, event handling
 - **Fetch API** – For retrieving quotes from public quote APIs
-- **LocalStorage** – For storing user preferences and favorite quotes
+- **IndexedDB** – For storing user preferences and favorite quotes
 - **Service Worker** – For PWA capabilities and offline support
 
 ---
