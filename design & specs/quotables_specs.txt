@@ -1,0 +1,34 @@
+Random quote display area: Displays a randomly fetched quote prominently on the screen, along with the author's name below. “Unknown” if no author is provided. Shows a spinner or loading animation while a quote is being fetched.
+
+Generate new quote button: Allows users to request a new quote on demand.
+
+Copy to clipboard: Lets users copy the currently displayed quote and author text directly to their clipboard with one click.
+
+Share quote button: Opens a selection of Social Networking Services with the current quote pre-filled for easy sharing.
+
+Save to favorites: Enables users to save quotes for later viewing.
+
+View favorites: Displays all user-saved quotes in a modal or dedicated section.
+
+Clear favorites: Allows users to clear all saved quotes at once.
+
+Quote auto-refresh toggle: Enables automatic fetching of new quotes every user-defined interval (e.g., 15 or 30 seconds), with a start/stop toggle.
+
+Light/dark mode toggle: Offers a switch to change the theme between light and dark appearances. The selected theme is remembered by the next session.
+
+Language selector: Provides a dropdown to choose the language of displayed quotes (e.g., English, Spanish).
+
+Quotes filter/search: Allows users to search or filter quotes by specific authors, genres etc via a search field or dropdown.
+
+Custom font selector: Users can choose from a list of font styles to customize the appearance of the quote text and interface.
+
+Color theme selector: Users can select from predefined background/text color combinations for additional UI personalization.
+
+Mobile-first responsive layout: The layout adapts across all devices (mobile, tablet, desktop).
+
+Accessible design: Keyboard-navigable buttons, appropriate ARIA labels, and color contrast ensure usability for screen reader and keyboard users.
+
+Installable PWA support: Users can install the app on their device via browser, allowing offline access to cached quotes.
+
+Import/export favorites as JSON: Offers the ability to export saved favorite quotes as a .json file and re-import them later from local files.
+
