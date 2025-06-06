@@ -55,7 +55,7 @@ A feature-rich, responsive, and accessible random quote generator built with van
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/random-quote-generator.git
+   git clone https://github.com/iraqooh/quotables_random_qoute_generator.git
    ```
    
 2. Navigate into the directory
