@@ -1,8 +1,6 @@
-# 🌟 Random Quote Generator
+# 🌟 Quotables
 
-A feature-rich, responsive, and accessible **Random Quote Generator** built with **Vanilla JavaScript (HTML, CSS, JS + Fetch API)**. This web app delivers inspirational quotes on demand, with options to customize appearance, manage favorites, and even install it as a Progressive Web App (PWA).
-
----
+A feature-rich, responsive, and accessible random quote generator built with vanilla JavaScript. This web app delivers inspirational quotes on demand, with options to customize appearance, manage favorites, and even install it as a Progressive Web App (PWA).
 
 ## 🚀 Features
 
@@ -60,10 +58,20 @@ A feature-rich, responsive, and accessible **Random Quote Generator** built with
    git clone https://github.com/your-username/random-quote-generator.git
    ```
    
-Navigate into the directory
+2. Navigate into the directory
+   ```bash
+   cd random-quote-generator
+   ```
+   
+3. Open index.html in your browser (no build required)
 
-```bash
-cd random-quote-generator
-```
+## 📄 License
+This project is licensed under the GNU License.
 
-Open index.html in your browser (no build required)
+## 🤝 Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
+
+## 📬 Contact
+For suggestions or collaboration opportunities, feel free to open an issue or contact the repo maintainer.
+
+"Code is poetry. And sometimes, poetry is code." ✨
