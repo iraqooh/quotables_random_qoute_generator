@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+/* 
+body.dark {
+  background-color: '#1e1e3f',  
+  from: '#0f172a',        
+  to: '#312e81',          
+  text: '#ffffff',        
+  secondaryText: '#94a3b8', 
+  card: '#2d2d5a',        
+  accent: '#8B5CF6',      
+  buttonHover: '#ffffff33', 
+}
+
+body.light: {
+  background: '#f8fafc',  
+  from: '#94a3b8',        
+  to: '#ffffff',          
+  text: '#1e293b',        
+  secondaryText: '#64748b', 
+  card: '#f1f5f9',        
+  accent: '#8B5CF6',      
+  buttonHover: '#00000020', 
+}
+
+*/
